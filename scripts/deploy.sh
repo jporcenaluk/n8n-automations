@@ -153,7 +153,7 @@ for workflow_file in "${WORKFLOWS_DIR}"/*.json; do
 
     # Read workflow file
     workflow_data=$(cat "$workflow_file")
-    workflow_name=$(echo "$workflow_data" | grep -o '"name":"[^"]*' | head -1 | cut -d'"' -f4)
+    workflow_name=$(echo "$workflow_data" | grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*' | head -1 | cut -d'"' -f4)
 
     if [ -z "$workflow_name" ]; then
         echo -e "${RED}✗ Could not extract workflow name from ${filename}${NC}"
