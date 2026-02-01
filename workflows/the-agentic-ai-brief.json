@@ -159,7 +159,7 @@
       "ai_languageModel": [
         [
           {
-            "node": "AI Agent",
+            "node": "generate content",
             "type": "ai_languageModel",
             "index": 0
           }
