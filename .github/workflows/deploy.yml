@@ -1,0 +1,48 @@
+name: Deploy n8n Workflows
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'workflows/*.json'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: |
+          echo "N8N_BASE_URL=${{ secrets.N8N_BASE_URL }}" >> $GITHUB_ENV
+          echo "N8N_API_KEY=${{ secrets.N8N_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Validate configuration
+        run: |
+          if [ -z "${{ secrets.N8N_BASE_URL }}" ]; then
+            echo "Error: N8N_BASE_URL secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.N8N_API_KEY }}" ]; then
+            echo "Error: N8N_API_KEY secret is not set"
+            exit 1
+          fi
+          echo "Configuration validated successfully"
+
+      - name: Make deployment script executable
+        run: chmod +x ./scripts/deploy.sh
+
+      - name: Deploy workflows
+        run: ./scripts/deploy.sh
+        env:
+          N8N_BASE_URL: ${{ secrets.N8N_BASE_URL }}
+          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+
+      - name: Deployment summary
+        run: |
+          echo "Deployment completed!"
+          echo "Check your n8n Cloud instance to verify workflows are active."
