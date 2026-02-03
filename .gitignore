@@ -1,17 +1,29 @@
-# Environment variables
+# Environment variables (contains secrets)
 .env
-.env.local
 
-# OS specific files
-.DS_Store
-Thumbs.db
+# Shell configuration
+.bash_profile
+.bashrc
+.profile
+.zprofile
+.zshrc
 
-# IDE files
+# IDE settings
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
+
+# Git config
+.gitconfig
+.gitmodules
+
+# Tool configs
+.mcp.json
+.ripgreprc
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
@@ -19,4 +31,16 @@ npm-debug.log*
 
 # Temporary files
 *.tmp
-.temp/
+*.bak
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
